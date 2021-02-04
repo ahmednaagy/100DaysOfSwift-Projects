@@ -86,6 +86,7 @@ class ViewController: UITableViewController {
         ac.addAction(filterAction)
         present(ac, animated: true)
     }
+    
     @objc func resetFilter() {
         filteredPetitions.removeAll()
         tableView.reloadData()
@@ -100,21 +101,11 @@ class ViewController: UITableViewController {
             for petition in petitions {
                 if petition.title.lowercased().contains(keyWord.lowercased()) || petition.body.lowercased().contains(keyWord.lowercased()) {
                     filteredPetitions.append(petition)
-                    navigationItem.leftBarButtonItems?.last?.isEnabled = true
-                } else {
-                    notFoundAlert(keyWord: keyWord)
-                    navigationItem.leftBarButtonItems?.last?.isEnabled = false
                 }
             }
         }
+        navigationItem.leftBarButtonItems?.last?.isEnabled = true
         tableView.reloadData()
-    }
-    
-    func notFoundAlert(keyWord: String) {
-        let ac = UIAlertController(title: "Not found", message: "Couldn't find the word you were looking for \(keyWord)", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        ac.addAction(action)
-        present(ac, animated: true)
     }
     
     // MARK:- Implementing TableView methods
@@ -148,8 +139,8 @@ class ViewController: UITableViewController {
             vc.detailItem = filteredPetitions[indexPath.row]
         }
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    
+    } 
 }
+
+
 
